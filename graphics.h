@@ -33,22 +33,15 @@ typedef struct {
 typedef enum { Corner, Center } RectMode;
 
 
-// do NOT fuck with the next 10 lines
-struct graphics;
-
-typedef void (*DrawFunc)(struct graphics *);
-
-typedef struct graphics {
+typedef struct {
     SDL_Window *win;
     SDL_Renderer *ren;
     Color4 *bg_color;
-    DrawFunc draw; // should run once every frame
 } Graphics;
 
 
-int G_Init(Graphics *g, Color4 *bg, DrawFunc draw);
+int G_Init(Graphics *g, Color4 *bg);
 void G_Update(Graphics *g);
-void G_Main(Graphics *g);
 void G_Destroy(Graphics *g);
 
 Size2 G_WinSize(Graphics *g);

@@ -10,7 +10,7 @@ void P2_Print(Point2 *p) {
     printf("Point(%d, %d)\n", p->x, p->y);
 }
 
-int G_Init(Graphics *g, Color4 *bg, DrawFunc draw) {
+int G_Init(Graphics *g, Color4 *bg) {
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL;
 
@@ -54,7 +54,6 @@ int G_Init(Graphics *g, Color4 *bg, DrawFunc draw) {
     g->win = window;
     g->ren = renderer;
     g->bg_color = bg;
-    g->draw = draw;
     
     return EXIT_SUCCESS;
 }
@@ -165,24 +164,6 @@ void G_DrawRect(Graphics *g, Rect *r, Color4 *c, RectMode mode, bool fill) {
         SDL_RenderFillRect(g->ren, draw_rect);
 
     SDL_RenderDrawRect(g->ren, draw_rect);
-}
-
-// the main function
-void G_Main(Graphics *g) {
-    SDL_Event event;
-    bool crashed = false;
-    while(!crashed) {
-        while(SDL_PollEvent(&event)) {
-            switch(event.type) {
-                case SDL_QUIT:
-                    crashed = true;
-                    break;
-            }
-        }
-        SDL_Delay(32);
-
-        g->draw(g);
-    }
 }
 
 void G_Destroy(Graphics *g) {
