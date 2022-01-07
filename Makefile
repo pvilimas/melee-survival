@@ -1,5 +1,5 @@
 CFLAGS = -std=c11 -Wall -Wextra -g -lm -lSDL2 -o main
-SRC = main.c graphics.c
+SRC = main.c game.c graphics.c
 
 all: clean build run
 

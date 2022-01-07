@@ -1,6 +1,8 @@
 #ifndef _GRAPHICS_H
 #define _GRAPHICS_H
 
+#include <stdbool.h>
+
 #include "SDL2/SDL.h"
 
 #define debug printf("L%d\n", __LINE__)
@@ -24,6 +26,13 @@ typedef struct {
     Uint8 r, g, b, a;
 } Color4;
 
+typedef struct {
+    int x, y, w, h;
+} Rect;
+
+typedef enum { Corner, Center } RectMode;
+
+
 // do NOT fuck with the next 10 lines
 struct graphics;
 
@@ -36,7 +45,6 @@ typedef struct graphics {
     DrawFunc draw; // should run once every frame
 } Graphics;
 
-typedef enum { Corner, Center } RectMode;
 
 int G_Init(Graphics *g, Color4 *bg, DrawFunc draw);
 void G_Update(Graphics *g);
@@ -49,5 +57,6 @@ void G_SetColor(Graphics *g, Color4 *c);
 void G_FillBG(Graphics *g, Color4 *c);
 void G_DrawLine(Graphics *g, Point2 *start, Point2 *end, Color4 *c);
 void G_DrawGrid(Graphics *g, int gridsize, Point2 *center, Color4 *c);
+void G_DrawRect(Graphics *g, Rect *r, Color4 *c, RectMode mode, bool fill);
 
 #endif // _GRAPHICS_H

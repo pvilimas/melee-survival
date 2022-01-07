@@ -1,7 +1,9 @@
+#include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 
 #include "SDL2/SDL.h"
+
 #include "graphics.h"
 
 void P2_Print(Point2 *p) {
@@ -27,7 +29,7 @@ int G_Init(Graphics *g, Color4 *bg, DrawFunc draw) {
     int win_w = dispmode.w * DEFAULT_SCREEN_PERCENT_W,
         win_h = dispmode.h * DEFAULT_SCREEN_PERCENT_H;
     // printf("screen size: (%d, %d)\n", dispmode->w, dispmode->h);
-    printf("starting dim: (%d, %d)\n", win_w, win_h);
+    // printf("starting dim: (%d, %d)\n", win_w, win_h);
 
     
     window = SDL_CreateWindow(
@@ -140,6 +142,29 @@ void G_DrawGrid(Graphics *g, int gridsize, Point2 *center, Color4 *c) {
         );
     }
 
+}
+// if color is null, ignore and use previous color
+void G_DrawRect(Graphics *g, Rect *r, Color4 *c, RectMode mode, bool fill) {
+    if (c != NULL)
+        SDL_SetRenderDrawColor(g->ren, c->r, c->g, c->b, c->a);
+    int abs_x, abs_y;
+    if (mode == Center) {
+        // x, y => x-w/2, y-h/2
+        abs_x = r->x - (r->w / 2);
+        abs_y = r->y - (r->h / 2);
+    } else if (mode == /* top left */ Corner) {
+        // x, y => x, y
+        abs_x = r->x;
+        abs_y = r->y;
+    } else {
+        assert(0 && "Unreachable code");
+    }
+
+    SDL_Rect *draw_rect = &(SDL_Rect){abs_x, abs_y, r->w, r->h};
+    if (fill)
+        SDL_RenderFillRect(g->ren, draw_rect);
+
+    SDL_RenderDrawRect(g->ren, draw_rect);
 }
 
 // the main function
