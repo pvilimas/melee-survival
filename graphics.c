@@ -20,7 +20,6 @@ int G_Init(Graphics *g, Color4 *bg) {
         exit(EXIT_FAILURE);
     }
 
-
     // get screen dimensions
     SDL_DisplayMode dispmode;
     SDL_GetCurrentDisplayMode(0, &dispmode);
@@ -31,7 +30,6 @@ int G_Init(Graphics *g, Color4 *bg) {
     // printf("screen size: (%d, %d)\n", dispmode->w, dispmode->h);
     // printf("starting dim: (%d, %d)\n", win_w, win_h);
 
-    
     window = SDL_CreateWindow(
         "Melee Survival",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -43,7 +41,6 @@ int G_Init(Graphics *g, Color4 *bg) {
         exit(EXIT_FAILURE); 
     }
 
-    
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) {
         fprintf(stderr, "SDL renderer error: %s\n", SDL_GetError());

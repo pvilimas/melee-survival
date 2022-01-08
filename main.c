@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 
     Game game;
 
-    Game_Init(&game);
+    Game_Init(&game, update_graphics);
     Game_Main(&game);
 
 }

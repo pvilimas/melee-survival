@@ -21,9 +21,9 @@ typedef struct game {
     DrawFunc draw; // should run once every frame
 } Game;
 
-void Game_Init(Game *game);
+void Game_Init(Game *game, DrawFunc draw);
 void Game_Main(Game *game);
 
-void update_graphics(Game *game);
+void Game_HandleKeyDown(Game *game, SDL_KeyboardEvent *k);
 
 #endif // _GAME_H
